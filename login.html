@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔑 Login - Nekolabs</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="https://i.pinimg.com/736x/8d/a4/6a/8da46a2e9e9e9e9e9e9e9e9e9e9e9e9e.jpg" alt="Nekolabs Logo">
+      <span>Nekolabs</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="mods.html" class="nav-link">📂 Mods</a>
+      <a href="chat.html" class="nav-link">🤖 Chat AI</a>
+      <a href="login.html" class="nav-btn nav-btn-outline">🔑 Masuk</a>
+      <a href="register.html" class="nav-btn nav-btn-primary">📝 Daftar</a>
+    </div>
+  </nav>
+
+  <!-- LOGIN FORM -->
+  <div class="auth-container">
+    <div class="auth-card card-glass">
+      <h2>🔑 <span class="text-gradient">Login</span></h2>
+      <p class="subtitle">Masuk ke akun Nekolabs kamu</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label>👤 Username</label>
+          <input type="text" id="loginUsername" class="form-input" placeholder="Masukkan username" required>
+        </div>
+
+        <div class="form-group">
+          <label>🔒 Password</label>
+          <input type="password" id="loginPassword" class="form-input" placeholder="Masukkan password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;">🔑 Login</button>
+      </form>
+
+      <div id="messageBox" style="margin-top:16px; text-align:center;"></div>
+
+      <p style="text-align:center; margin-top:24px; color:var(--text-secondary);">
+        Belum punya akun? <a href="register.html" style="color:var(--accent-light);">Daftar di sini</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    // Update navbar kalau udah login
+    (function() {
+      const user = JSON.parse(localStorage.getItem('nekolabs_user') || 'null');
+      const nav = document.getElementById('navLinks');
+      if (!nav || !user) return;
+
+      if (user.role === 'admin') {
+        nav.innerHTML = `
+          <a href="mods.html" class="nav-link">📂 Mods</a>
+          <a href="chat.html" class="nav-link">🤖 Chat AI</a>
+          <span class="nav-user">👑 ${user.username}</span>
+          <a href="dashboard-admin.html" class="nav-btn nav-btn-outline">🛠️ Admin</a>
+          <a href="#" onclick="logout()" class="nav-btn nav-btn-primary">🚪 Keluar</a>
+        `;
+      } else {
+        nav.innerHTML = `
+          <a href="mods.html" class="nav-link">📂 Mods</a>
+          <a href="chat.html" class="nav-link">🤖 Chat AI</a>
+          <span class="nav-user">👤 ${user.username}</span>
+          ${user.premium ? '<span class="badge badge-premium">💎 Premium</span>' : ''}
+          <a href="dashboard-user.html" class="nav-btn nav-btn-outline">📂 Dashboard</a>
+          <a href="#" onclick="logout()" class="nav-btn nav-btn-primary">🚪 Keluar</a>
+        `;
+      }
+    })();
+
+    function logout() {
+      localStorage.removeItem('nekolabs_user');
+      location.reload();
+    }
+  </script>
+</body>
+</html>

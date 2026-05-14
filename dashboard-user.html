@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>👤 Dashboard - Nekolabs</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="https://i.pinimg.com/736x/8d/a4/6a/8da46a2e9e9e9e9e9e9e9e9e9e9e9e9e.jpg" alt="Nekolabs Logo">
+      <span>Nekolabs</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="mods.html" class="nav-link">📂 Mods</a>
+      <a href="chat.html" class="nav-link">🤖 Chat AI</a>
+      <a href="downloader.html" class="nav-link">📥 Downloader</a>
+      <span class="nav-user">👤 User</span>
+      <a href="dashboard-user.html" class="nav-btn nav-btn-outline">📂 Dashboard</a>
+      <a href="#" onclick="logout()" class="nav-btn nav-btn-primary">🚪 Keluar</a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main style="padding: 100px 24px 60px;">
+    <div class="container">
+      <h1 style="font-family:'Poppins',sans-serif; font-size:2em; margin-bottom:8px;">
+        👤 <span class="text-gradient" id="dashboardTitle">Dashboard</span>
+      </h1>
+      <p style="color:var(--text-secondary); margin-bottom:24px;">
+        Selamat datang, <strong id="userNameDisplay">User</strong>!
+        <span id="premiumBadge"></span>
+      </p>
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('upload')">📤 Upload Mod</button>
+        <button class="tab" onclick="showTab('my-mods')">📂 Mod Saya</button>
+      </div>
+
+      <!-- TAB UPLOAD -->
+      <div id="tab-upload">
+        <div class="card-glass" style="padding:24px;">
+          <h3 style="margin-bottom:16px;">📤 Upload Mod Baru</h3>
+          <form id="uploadForm">
+            <div class="form-group">
+              <label>📛 Nama Mod</label>
+              <input type="text" id="modName" class="form-input" placeholder="Nama mod..." required>
+            </div>
+            <div class="form-group">
+              <label>📂 Kategori</label>
+              <select id="modCategory" class="form-input" required>
+                <option value="action">🎮 Action</option>
+                <option value="rpg">⚔️ RPG</option>
+                <option value="adventure">🗺️ Adventure</option>
+                <option value="simulation">🏡 Simulation</option>
+                <option value="racing">🏎️ Racing</option>
+                <option value="horror">👻 Horror</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>📝 Deskripsi</label>
+              <input type="text" id="modDesc" class="form-input" placeholder="Deskripsi singkat...">
+            </div>
+            <div class="form-group">
+              <label>🔗 Link Download</label>
+              <input type="url" id="modLink" class="form-input" placeholder="https://www.mediafire.com/..." required>
+            </div>
+            <div class="form-group">
+              <label>🔒 Password (opsional)</label>
+              <input type="text" id="modPassword" class="form-input" placeholder="Kosongkan kalau tidak ada">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">📤 Upload Mod</button>
+          </form>
+          <div id="uploadMessage" style="margin-top:16px; text-align:center;"></div>
+        </div>
+      </div>
+
+      <!-- TAB MY MODS -->
+      <div id="tab-my-mods" style="display:none;">
+        <div id="myModList" style="display:flex; flex-direction:column; gap:12px;">
+          <p style="text-align:center; color:var(--text-secondary);">⏳ Memuat mod kamu...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/dashboard.js"></script>
+  <script>
+    function logout() {
+      localStorage.removeItem('nekolabs_user');
+      location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

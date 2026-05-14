@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐱 Nekolabs - Pustaka Digital</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="https://files.catbox.moe/e624t7.png" alt="Nekolabs Logo">
+      <span>Nekolabs</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="mods.html" class="nav-link">📂 Mods</a>
+      <a href="chat.html" class="nav-link">🤖 Chat AI</a>
+      <a href="downloader.html" class="nav-link">📥 Downloader</a>
+      <a href="login.html" class="nav-btn nav-btn-outline">🔑 Masuk</a>
+      <a href="register.html" class="nav-btn nav-btn-primary">📝 Daftar</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <img src="https://files.catbox.moe/e624t7.png" alt="Nekolabs Logo" class="hero-logo">
+      <h1>🐱 Nekolabs</h1>
+      <p>
+        Pustaka digital modern untuk koleksi mod game, downloader video, 
+        dan chat AI dengan berbagai karakter anime. Jelajahi, unduh, dan 
+        ngobrol santai di satu tempat.
+      </p>
+      <div class="hero-buttons">
+        <a href="mods.html" class="btn btn-primary">📂 Jelajahi Mod</a>
+        <a href="chat.html" class="btn btn-outline">🤖 Coba AI Chat</a>
+        <a href="downloader.html" class="btn btn-outline">📥 Downloader</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section style="padding: 80px 24px;">
+    <div class="container">
+      <h2 style="text-align:center; font-family:'Poppins',sans-serif; font-size:2em; margin-bottom:16px;">
+        ✨ Fitur <span class="text-gradient">Unggulan</span>
+      </h2>
+      <p style="text-align:center; color:var(--text-secondary); margin-bottom:48px; max-width:600px; margin-left:auto; margin-right:auto;">
+        Semua yang kamu butuhkan dalam satu platform
+      </p>
+
+      <div class="grid grid-3">
+        <div class="card" style="text-align:center;">
+          <span style="font-size:3em;">📂</span>
+          <h3 style="margin:12px 0 8px;">File Library</h3>
+          <p style="color:var(--text-secondary); font-size:0.9em;">
+            Koleksi mod game dengan kategori lengkap. Upload via link, copy password otomatis.
+          </p>
+        </div>
+
+        <div class="card" style="text-align:center;">
+          <span style="font-size:3em;">🤖</span>
+          <h3 style="margin:12px 0 8px;">AI Chat</h3>
+          <p style="color:var(--text-secondary); font-size:0.9em;">
+            Ngobrol dengan karakter anime favoritmu. Mode Normal, Adult, & Romantic tersedia.
+          </p>
+        </div>
+
+        <div class="card" style="text-align:center;">
+          <span style="font-size:3em;">📥</span>
+          <h3 style="margin:12px 0 8px;">Downloader</h3>
+          <p style="color:var(--text-secondary); font-size:0.9em;">
+            Download video TikTok & Instagram dengan mudah. Tempel link, klik download.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section style="padding: 60px 24px;">
+    <div class="container">
+      <div id="statsBox" style="text-align:center; color:var(--text-secondary);">
+        ⏳ Memuat statistik...
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOATING CONTACT BUTTON -->
+<a href="contact.html" class="floating-contact" title="Hubungi Admin">
+  📞
+</a>
+
+  <!-- FOOTER -->
+  <footer style="text-align:center; padding:40px 24px; border-top:1px solid var(--border); color:var(--text-muted); font-size:0.9em;">
+    <p>🐱 Nekolabs • Dibuat dengan ❤️ • Gratis untuk semua</p>
+  </footer>
+
+  <script>
+    // Load stats
+    async function loadStats() {
+      const box = document.getElementById('statsBox');
+      try {
+        const res = await fetch('https://nekolabs-api.onrender.com/api/mods');
+        const data = await res.json();
+        if (data.ok) {
+          box.innerHTML = `
+            <div class="stat-grid">
+              <div class="stat-card">
+                <div class="stat-icon">📂</div>
+                <div class="stat-number">${data.count}</div>
+                <div class="stat-label">Total Mod</div>
+              </div>
+            </div>
+          `;
+        }
+      } catch {
+        box.innerHTML = '<p>📂 Mod siap dijelajahi!</p>';
+      }
+    }
+    loadStats();
+
+    // Update navbar
+    (function() {
+      const user = JSON.parse(localStorage.getItem('nekolabs_user') || 'null');
+      const nav = document.getElementById('navLinks');
+      if (!nav || !user) return;
+
+      if (user.role === 'admin') {
+        nav.innerHTML = `
+          <a href="mods.html" class="nav-link">📂 Mods</a>
+          <a href="chat.html" class="nav-link">🤖 Chat AI</a>
+          <a href="downloader.html" class="nav-link">📥 Downloader</a>
+          <span class="nav-user">👑 ${user.username}</span>
+          <a href="dashboard-admin.html" class="nav-btn nav-btn-outline">🛠️ Admin</a>
+          <a href="#" onclick="logout()" class="nav-btn nav-btn-primary">🚪 Keluar</a>
+        `;
+      } else {
+        nav.innerHTML = `
+          <a href="mods.html" class="nav-link">📂 Mods</a>
+          <a href="chat.html" class="nav-link">🤖 Chat AI</a>
+          <a href="downloader.html" class="nav-link">📥 Downloader</a>
+          <span class="nav-user">👤 ${user.username}</span>
+          ${user.premium ? '<span class="badge badge-premium">💎 Premium</span>' : ''}
+          <a href="dashboard-user.html" class="nav-btn nav-btn-outline">📂 Dashboard</a>
+          <a href="#" onclick="logout()" class="nav-btn nav-btn-primary">🚪 Keluar</a>
+        `;
+      }
+    })();
+
+    function logout() {
+      localStorage.removeItem('nekolabs_user');
+      location.reload();
+    }
+  </script>
+</body>
+</html>

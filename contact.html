@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📞 Kontak - Nekolabs</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="https://i.pinimg.com/736x/8d/a4/6a/8da46a2e9e9e9e9e9e9e9e9e9e9e9e9e.jpg" alt="Nekolabs Logo">
+      <span>Nekolabs</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="mods.html" class="nav-link">📂 Mods</a>
+      <a href="chat.html" class="nav-link">🤖 Chat AI</a>
+      <a href="downloader.html" class="nav-link">📥 Downloader</a>
+      <a href="contact.html" class="nav-link active">📞 Kontak</a>
+      <a href="login.html" class="nav-btn nav-btn-outline">🔑 Masuk</a>
+      <a href="register.html" class="nav-btn nav-btn-primary">📝 Daftar</a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main style="padding: 100px 24px 60px;">
+    <div class="container">
+      <h1 style="font-family:'Poppins',sans-serif; font-size:2em; margin-bottom:8px; text-align:center;">
+        📞 <span class="text-gradient">Kontak Admin</span>
+      </h1>
+      <p style="text-align:center; color:var(--text-secondary); margin-bottom:40px;">
+        Punya pertanyaan, laporan bug, atau request fitur? Hubungi admin lewat platform di bawah ini!
+      </p>
+
+      <!-- CONTACT GRID -->
+      <div class="contact-grid">
+        <!-- Telegram -->
+        <a href="https://t.me/Hartoffc" target="_blank" class="contact-card">
+          <span class="contact-icon">✈️</span>
+          <span class="contact-name">Telegram</span>
+          <span class="contact-desc">Chat langsung via Telegram</span>
+          <button class="contact-btn btn-telegram">✈️ Buka Telegram</button>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/6281210061590" target="_blank" class="contact-card">
+          <span class="contact-icon">💬</span>
+          <span class="contact-name">WhatsApp</span>
+          <span class="contact-desc">Chat via WhatsApp</span>
+          <button class="contact-btn btn-whatsapp">💬 Buka WhatsApp</button>
+        </a>
+
+        <!-- TikTok -->
+        <a href="https://tiktok.com/@prees_heretotype1890" target="_blank" class="contact-card">
+          <span class="contact-icon">🎵</span>
+          <span class="contact-name">TikTok</span>
+          <span class="contact-desc">Follow buat update terbaru</span>
+          <button class="contact-btn btn-tiktok">🎵 Buka TikTok</button>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://instagram.com/aseli3312" target="_blank" class="contact-card">
+          <span class="contact-icon">📷</span>
+          <span class="contact-name">Instagram</span>
+          <span class="contact-desc">Follow & DM untuk info</span>
+          <button class="contact-btn btn-instagram">📷 Buka Instagram</button>
+        </a>
+      </div>
+
+      <!-- BUG REPORT -->
+      <div class="bug-report-box">
+        <h3>🐛 Lapor Bug atau Request Fitur</h3>
+        <p>Kirim pesan detail ke admin lewat Telegram atau WhatsApp untuk respon lebih cepat!</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="https://t.me/Hartoffc" target="_blank" class="btn btn-primary btn-sm">✈️ Telegram</a>
+          <a href="https://wa.me/6281210061590" target="_blank" class="btn btn-outline btn-sm">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Update navbar
+    (function() {
+      const user = JSON.parse(localStorage.getItem('nekolabs_user') || 'null');
+      const nav = document.getElementById('navLinks');
+      if (!nav || !user) return;
+
+      if (user.role === 'admin') {
+        nav.innerHTML = `
+          <a href="mods.html" class="nav-link">📂 Mods</a>
+          <a href="chat.html" class="nav-link">🤖 Chat AI</a>
+          <a href="downloader.html" class="nav-link">📥 Downloader</a>
+          <a href="contact.html" class="nav-link active">📞 Kontak</a>
+          <span class="nav-user">👑 ${user.username}</span>
+          <a href="dashboard-admin.html" class="nav-btn nav-btn-outline">🛠️ Admin</a>
+          <a href="#" onclick="logout()" class="nav-btn nav-btn-primary">🚪 Keluar</a>
+        `;
+      } else {
+        nav.innerHTML = `
+          <a href="mods.html" class="nav-link">📂 Mods</a>
+          <a href="chat.html" class="nav-link">🤖 Chat AI</a>
+          <a href="downloader.html" class="nav-link">📥 Downloader</a>
+          <a href="contact.html" class="nav-link active">📞 Kontak</a>
+          <span class="nav-user">👤 ${user.username}</span>
+          ${user.premium ? '<span class="badge badge-premium">💎 Premium</span>' : ''}
+          <a href="dashboard-user.html" class="nav-btn nav-btn-outline">📂 Dashboard</a>
+          <a href="#" onclick="logout()" class="nav-btn nav-btn-primary">🚪 Keluar</a>
+        `;
+      }
+    })();
+
+    function logout() {
+      localStorage.removeItem('nekolabs_user');
+      location.reload();
+    }
+  </script>
+</body>
+</html>
